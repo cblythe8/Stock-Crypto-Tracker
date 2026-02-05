@@ -83,16 +83,30 @@ if page == "Price Lookup":
 elif page == "Price Chart":
     st.header("📊 Price Chart")
 
-    col1, col2 = st.columns(2)
-    with col1:
-        symbol = st.text_input("Symbol", value="AAPL")
-    with col2:
-        period = st.selectbox("Time Period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=2)
+    symbol = st.text_input("Symbol", value="AAPL")
+
+    # Trading mode selection
+    mode = st.radio("Chart Mode", ["Day Trading", "Long Term"], horizontal=True)
+
+    if mode == "Day Trading":
+        col1, col2 = st.columns(2)
+        with col1:
+            interval = st.selectbox("Interval", ["1m", "5m", "15m", "30m", "1h"], index=1)
+        with col2:
+            period = st.selectbox("Period", ["1d", "5d", "7d"], index=0)
+        st.caption("Intraday data limited to last 7 days for minute intervals, 60 days for hourly")
+    else:
+        col1, col2 = st.columns(2)
+        with col1:
+            interval = "1d"
+            period = st.selectbox("Period", ["1mo", "3mo", "6mo", "1y", "2y", "5y", "max"], index=2)
+        with col2:
+            st.write("")  # Spacer
 
     if st.button("Show Chart", type="primary"):
         with st.spinner("Loading chart..."):
             ticker = yf.Ticker(symbol)
-            hist = ticker.history(period=period)
+            hist = ticker.history(period=period, interval=interval)
 
         if not hist.empty:
             st.line_chart(hist["Close"])
@@ -112,7 +126,20 @@ elif page == "Compare Assets":
     st.header("⚖️ Compare Assets")
 
     symbols_input = st.text_input("Enter symbols (comma-separated)", value="AAPL, GOOGL, MSFT")
-    period = st.selectbox("Time Period", ["1mo", "3mo", "6mo", "1y"], index=1)
+
+    # Trading mode selection
+    mode = st.radio("Chart Mode", ["Day Trading", "Long Term"], horizontal=True, key="compare_mode")
+
+    if mode == "Day Trading":
+        col1, col2 = st.columns(2)
+        with col1:
+            interval = st.selectbox("Interval", ["1m", "5m", "15m", "30m", "1h"], index=1, key="compare_interval")
+        with col2:
+            period = st.selectbox("Period", ["1d", "5d", "7d"], index=0, key="compare_period_day")
+    else:
+        interval = "1d"
+        period = st.selectbox("Period", ["1mo", "3mo", "6mo", "1y"], index=1, key="compare_period_long")
+
     normalize = st.checkbox("Normalize to % change", value=True)
 
     if st.button("Compare", type="primary"):
@@ -123,7 +150,7 @@ elif page == "Compare Assets":
 
             for symbol in symbols:
                 ticker = yf.Ticker(symbol)
-                hist = ticker.history(period=period)
+                hist = ticker.history(period=period, interval=interval)
 
                 if not hist.empty:
                     if normalize:
