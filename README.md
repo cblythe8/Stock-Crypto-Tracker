@@ -1,65 +1,51 @@
 # Stock & Crypto Tracker
 
-A Python project to fetch and visualize financial data using APIs.
+A web dashboard to track stocks and crypto prices, visualize charts, and monitor your portfolio.
 
-## What It Does
-- Fetch real-time stock and crypto prices via Yahoo Finance API
-- Plot historical price charts with matplotlib
-- Compare multiple assets on a single chart (normalized or raw)
-- Track portfolio value across stocks and crypto
-- Set price alerts for buy/sell signals
+**[Live Demo](https://cblythe8-stock-crypto-tracker.streamlit.app)** (link active after deployment)
 
 ## Features
 
-| Level | Feature | Status |
-|-------|---------|--------|
-| 1 | Fetch and print current price | ✅ |
-| 2 | Plot historical prices | ✅ |
-| 3 | Compare multiple tickers on one chart | ✅ |
-| 4 | Portfolio tracker (holdings + total value) | ✅ |
-| 5 | Price alerts | ✅ |
-| 6 | Web dashboard | Future |
+- **Price Lookup** - Real-time stock and crypto prices
+- **Price Charts** - Historical price visualization
+- **Compare Assets** - Side-by-side comparison with normalized % change
+- **Portfolio Tracker** - Track your holdings and total value
+- **Price Alerts** - Get notified when assets hit target prices
 
-## APIs Used
-- **yfinance** - Yahoo Finance wrapper (stocks, ETFs, crypto)
-- **CoinGecko** - Crypto data (optional, for deeper crypto features)
+## Quick Start
 
-## Setup
+### Run Locally
 
 ```bash
-# Create virtual environment (recommended)
-python3 -m venv venv
-source venv/bin/activate  # On Mac/Linux
+# Clone the repo
+git clone https://github.com/cblythe8/Stock-Crypto-Tracker.git
+cd Stock-Crypto-Tracker
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run the web app
+streamlit run app.py
 ```
 
-## Usage
+### Command Line Version
 
 ```bash
 python tracker.py
 ```
 
-Or import functions in your own scripts:
+## Tech Stack
 
-```python
-from tracker import get_current_price, track_portfolio, check_price_alerts
+- **Python** - Core language
+- **yfinance** - Yahoo Finance API wrapper
+- **Streamlit** - Web dashboard framework
+- **Pandas** - Data manipulation
+- **Matplotlib** - Charts (CLI version)
 
-# Get current price
-price = get_current_price("AAPL")
+## Supported Symbols
 
-# Track portfolio
-holdings = {"AAPL": 10, "BTC-USD": 0.5}
-portfolio = track_portfolio(holdings)
-
-# Set alerts
-alerts = [{"symbol": "AAPL", "target": 200, "direction": "above"}]
-triggered = check_price_alerts(alerts)
-```
-
-## Resources
-- [yfinance docs](https://github.com/ranaroussi/yfinance)
-- [CoinGecko API](https://www.coingecko.com/en/api/documentation)
-- [Matplotlib tutorials](https://matplotlib.org/stable/tutorials/index.html)
-- [Plotly Python](https://plotly.com/python/)
+| Type | Examples |
+|------|----------|
+| Stocks | AAPL, GOOGL, MSFT, TSLA, AMZN |
+| Crypto | BTC-USD, ETH-USD, SOL-USD |
+| ETFs | SPY, QQQ, VOO |
