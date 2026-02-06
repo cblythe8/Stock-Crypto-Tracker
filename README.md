@@ -2,7 +2,7 @@
 
 A web dashboard to track stocks and crypto prices, visualize charts, and monitor your portfolio.
 
-**[Live Demo](https://cblythe8-stock-crypto-tracker.streamlit.app)** (link active after deployment)
+**[Live Demo](https://cblythe8-stock-crypto-tracker.streamlit.app)** (https://stock-crypto-tracker-vt6hb433hctduebdcvcnzr.streamlit.app/)
 
 ## Features
 
